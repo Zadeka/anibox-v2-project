@@ -9,9 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UpcomingRouteImport } from './routes/upcoming'
+import { Route as TopAnimeRouteImport } from './routes/topAnime'
+import { Route as SeasonalRouteImport } from './routes/seasonal'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as SchedulesRouteImport } from './routes/schedules'
+import { Route as GenresRouteImport } from './routes/genres'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as GenresAnimeRouteImport } from './routes/genres/anime'
 import { Route as AnimeAnimeIdRouteImport } from './routes/anime/$animeId'
 import { Route as AnimeAnimeIdThemesRouteImport } from './routes/anime/$animeId/themes'
 import { Route as AnimeAnimeIdStreamingRouteImport } from './routes/anime/$animeId/streaming'
@@ -19,19 +23,39 @@ import { Route as AnimeAnimeIdPicturesRouteImport } from './routes/anime/$animeI
 import { Route as AnimeAnimeIdEpisodesRouteImport } from './routes/anime/$animeId/episodes'
 import { Route as AnimeAnimeIdCharactersRouteImport } from './routes/anime/$animeId/characters'
 
+const UpcomingRoute = UpcomingRouteImport.update({
+  id: '/upcoming',
+  path: '/upcoming',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TopAnimeRoute = TopAnimeRouteImport.update({
+  id: '/topAnime',
+  path: '/topAnime',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeasonalRoute = SeasonalRouteImport.update({
+  id: '/seasonal',
+  path: '/seasonal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SchedulesRoute = SchedulesRouteImport.update({
+  id: '/schedules',
+  path: '/schedules',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GenresRoute = GenresRouteImport.update({
+  id: '/genres',
+  path: '/genres',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GenresAnimeRoute = GenresAnimeRouteImport.update({
-  id: '/genres/anime',
-  path: '/genres/anime',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnimeAnimeIdRoute = AnimeAnimeIdRouteImport.update({
@@ -67,9 +91,13 @@ const AnimeAnimeIdCharactersRoute = AnimeAnimeIdCharactersRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/genres': typeof GenresRoute
+  '/schedules': typeof SchedulesRoute
   '/search': typeof SearchRoute
+  '/seasonal': typeof SeasonalRoute
+  '/topAnime': typeof TopAnimeRoute
+  '/upcoming': typeof UpcomingRoute
   '/anime/$animeId': typeof AnimeAnimeIdRouteWithChildren
-  '/genres/anime': typeof GenresAnimeRoute
   '/anime/$animeId/characters': typeof AnimeAnimeIdCharactersRoute
   '/anime/$animeId/episodes': typeof AnimeAnimeIdEpisodesRoute
   '/anime/$animeId/pictures': typeof AnimeAnimeIdPicturesRoute
@@ -78,9 +106,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/genres': typeof GenresRoute
+  '/schedules': typeof SchedulesRoute
   '/search': typeof SearchRoute
+  '/seasonal': typeof SeasonalRoute
+  '/topAnime': typeof TopAnimeRoute
+  '/upcoming': typeof UpcomingRoute
   '/anime/$animeId': typeof AnimeAnimeIdRouteWithChildren
-  '/genres/anime': typeof GenresAnimeRoute
   '/anime/$animeId/characters': typeof AnimeAnimeIdCharactersRoute
   '/anime/$animeId/episodes': typeof AnimeAnimeIdEpisodesRoute
   '/anime/$animeId/pictures': typeof AnimeAnimeIdPicturesRoute
@@ -90,9 +122,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/genres': typeof GenresRoute
+  '/schedules': typeof SchedulesRoute
   '/search': typeof SearchRoute
+  '/seasonal': typeof SeasonalRoute
+  '/topAnime': typeof TopAnimeRoute
+  '/upcoming': typeof UpcomingRoute
   '/anime/$animeId': typeof AnimeAnimeIdRouteWithChildren
-  '/genres/anime': typeof GenresAnimeRoute
   '/anime/$animeId/characters': typeof AnimeAnimeIdCharactersRoute
   '/anime/$animeId/episodes': typeof AnimeAnimeIdEpisodesRoute
   '/anime/$animeId/pictures': typeof AnimeAnimeIdPicturesRoute
@@ -103,9 +139,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/genres'
+    | '/schedules'
     | '/search'
+    | '/seasonal'
+    | '/topAnime'
+    | '/upcoming'
     | '/anime/$animeId'
-    | '/genres/anime'
     | '/anime/$animeId/characters'
     | '/anime/$animeId/episodes'
     | '/anime/$animeId/pictures'
@@ -114,9 +154,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/genres'
+    | '/schedules'
     | '/search'
+    | '/seasonal'
+    | '/topAnime'
+    | '/upcoming'
     | '/anime/$animeId'
-    | '/genres/anime'
     | '/anime/$animeId/characters'
     | '/anime/$animeId/episodes'
     | '/anime/$animeId/pictures'
@@ -125,9 +169,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/genres'
+    | '/schedules'
     | '/search'
+    | '/seasonal'
+    | '/topAnime'
+    | '/upcoming'
     | '/anime/$animeId'
-    | '/genres/anime'
     | '/anime/$animeId/characters'
     | '/anime/$animeId/episodes'
     | '/anime/$animeId/pictures'
@@ -137,13 +185,38 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GenresRoute: typeof GenresRoute
+  SchedulesRoute: typeof SchedulesRoute
   SearchRoute: typeof SearchRoute
+  SeasonalRoute: typeof SeasonalRoute
+  TopAnimeRoute: typeof TopAnimeRoute
+  UpcomingRoute: typeof UpcomingRoute
   AnimeAnimeIdRoute: typeof AnimeAnimeIdRouteWithChildren
-  GenresAnimeRoute: typeof GenresAnimeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/upcoming': {
+      id: '/upcoming'
+      path: '/upcoming'
+      fullPath: '/upcoming'
+      preLoaderRoute: typeof UpcomingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/topAnime': {
+      id: '/topAnime'
+      path: '/topAnime'
+      fullPath: '/topAnime'
+      preLoaderRoute: typeof TopAnimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seasonal': {
+      id: '/seasonal'
+      path: '/seasonal'
+      fullPath: '/seasonal'
+      preLoaderRoute: typeof SeasonalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
@@ -151,18 +224,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/schedules': {
+      id: '/schedules'
+      path: '/schedules'
+      fullPath: '/schedules'
+      preLoaderRoute: typeof SchedulesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/genres': {
+      id: '/genres'
+      path: '/genres'
+      fullPath: '/genres'
+      preLoaderRoute: typeof GenresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/genres/anime': {
-      id: '/genres/anime'
-      path: '/genres/anime'
-      fullPath: '/genres/anime'
-      preLoaderRoute: typeof GenresAnimeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/anime/$animeId': {
@@ -232,9 +312,13 @@ const AnimeAnimeIdRouteWithChildren = AnimeAnimeIdRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GenresRoute: GenresRoute,
+  SchedulesRoute: SchedulesRoute,
   SearchRoute: SearchRoute,
+  SeasonalRoute: SeasonalRoute,
+  TopAnimeRoute: TopAnimeRoute,
+  UpcomingRoute: UpcomingRoute,
   AnimeAnimeIdRoute: AnimeAnimeIdRouteWithChildren,
-  GenresAnimeRoute: GenresAnimeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

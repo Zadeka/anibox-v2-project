@@ -1,17 +1,23 @@
 // src/constants/navigation.ts
-import { Home, Search, Tv, type LucideIcon } from 'lucide-react';
-
-// Definisi tipe data agar TypeScript senang
+import {
+  Home,
+  Search,
+  Tv,
+  Monitor,
+  CalendarClock,
+  Trophy,
+  CalendarDays,
+  type LucideIcon,
+} from "lucide-react";
 export interface NavItem {
   title: string;
   href: string;
   icon: LucideIcon;
 }
 
-// Array data navigasi di-update berdasarkan routes
 export const sidebarNavItems: NavItem[] = [
   {
-    title: "Anime Populer", // Mengganti "All Anime" menjadi "Populer"
+    title: "Home",
     href: "/",
     icon: Home,
   },
@@ -21,9 +27,28 @@ export const sidebarNavItems: NavItem[] = [
     icon: Search,
   },
   {
-    title: "Daftar Genre",
-    href: "/genres/anime", // Sesuai dengan rute /genres/anime
-    icon: Tv, // Menggunakan ikon Tv untuk Genre
+    title: "Musim Sekarang",
+    href: "/seasonal",
+    icon: Monitor,
   },
-  // Untuk rute detail (/anime/:animeId) tidak perlu ditaruh di sidebar
+  {
+    title: "Musim Mendatang",
+    href: "/upcoming",
+    icon: CalendarClock,
+  },
+  {
+    title: "Top Ranking",
+    href: "/top-anime",
+    icon: Trophy,
+  },
+  {
+    title: "Jadwal Rilis",
+    href: "/schedules",
+    icon: CalendarDays,
+  },
+  {
+    title: "Daftar Genre",
+    href: "/genres",
+    icon: Tv,
+  },
 ];
