@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* --- LIGHT MODE (Putih Bersih dengan sentuhan Lavender) --- */
+    --background: 0 0% 100%;       /* Putih Murni */
+    --foreground: 262.1 40% 10%;   /* Teks Hitam Keunguan */
+
+    --card: 0 0% 100%;             /* Kartu Putih */
+    --card-foreground: 262.1 40% 10%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 262.1 40% 10%;
+ 
+    --primary: 262.1 83.3% 57.8%;  /* Ungu Violet Cerah (Light Mode Primary) */
+    --primary-foreground: 210 40% 98%; /* Putih kontras */
+ 
+    --secondary: 262.1 30% 94%;    /* Abu-abu terang keunguan */
+    --secondary-foreground: 262.1 47.4% 11.2%;
+ 
+    --muted: 262.1 30% 94%;
+    --muted-foreground: 262.1 10% 46.9%;
+ 
+    --accent: 262.1 30% 94%;
+    --accent-foreground: 262.1 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 262.1 20% 90%;       /* Border abu-abu keunguan */
+    --input: 262.1 20% 90%;
+    --ring: 262.1 83.3% 57.8%;     /* Ring warna primary */
+    
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    /* --- DARK MODE (Abu-abu Netral dengan Primary Ungu) --- */
+    
+    /* BACKGROUND UTAMA: Abu-abu netral sangat gelap (mendekati hitam) */
+    --background: 240 6% 8%;       /* Dark Grey (Zinc-950/Stone-950-ish) */
+    --foreground: 0 0% 98%;        /* Teks Putih */
+ 
+    /* CARD/SIDEBAR: Sedikit lebih terang dari background utama */
+    --card: 240 6% 12%;            /* Darker Grey (Zinc-900/Stone-900-ish) */
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 240 6% 8%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 263.4 70% 65%;      /* Ungu Lavender Terang (Dark Mode Primary) */
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 240 4% 16%;       /* Abu-abu gelap */
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 64.9%;
+ 
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --border: 240 4% 16%;          /* Border gelap */
+    --input: 240 4% 16%;
+    --ring: 263.4 70% 65%;         /* Ring warna primary */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
