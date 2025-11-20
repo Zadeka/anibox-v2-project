@@ -14,45 +14,70 @@ import type {
   ImageFormat,
 } from "../types/anime.type";
 
-// =================================================================
-// TIPE RETURN API JIKAN (Menggunakan Tipe Jikan yang Sudah Ada)
-// =================================================================
-
 // Tipe respons untuk daftar (misal: /anime, /top/anime)
 type ListResponse<T> = Promise<ApiResponse<T>>;
 
 // Tipe respons untuk detail tunggal (misal: /anime/{id})
 type DetailResponse<T> = Promise<JikanData<T>>;
 
+/** 1. GET All Anime (Populer) dengan Filter */
+export interface AnimeFilterParams {
+  q?: string;
+  type?: string;
+  status?: string;
+  rating?: string;
+  order_by?: string;
+  sort?: string;
+  // Anda bisa tambahkan 'limit', 'genres', 'start_date', dll. di sini
+}
+
 // =================================================================
-// I. FUNGSI AKSES DASAR & NAVIGASI UTAMA
+// FUNGSI AKSES DASAR & NAVIGASI UTAMA (getAllAnime yang Diperbarui)
 // =================================================================
 
-/** 1. GET All Anime (Populer) dengan Filter */
+export interface AnimeFilterParams {
+  q?: string;
+  type?: string;
+  status?: string;
+  rating?: string;
+  order_by?: string;
+  sort?: string;
+  limit?: number;
+}
+
+// 1. GET All Anime (untuk Home Page, Anime Populer)
 export const getAllAnime = async (
   page: number = 1,
-  filters?: {
-    q?: string;
-    type?: string;
-    status?: string;
-    rating?: string;
-    order_by?: string;
-    sort?: string;
-  },
+  filters?: AnimeFilterParams,
 ): ListResponse<AnimeItem> => {
-  const params: Record<string, string | number> = { page };
+  const limitValue = filters?.limit || 25;
 
-  // Tambahkan filter ke params jika ada
+  const params: Record<string, string | number | boolean> = {
+    page,
+    limit: limitValue, // 👈 SET NILAI LIMIT DISINI
+    sfw: true,
+  };
+
+  // Tambahkan filter lainnya
   if (filters) {
     Object.entries(filters).forEach(([key, value]) => {
-      if (value) params[key] = value;
+      if (value && key !== "limit" && key !== "page" && key !== "sfw") {
+        params[key] = value;
+      }
     });
   }
 
-  const response = await axiosInstance.get<ApiResponse<AnimeItem>>("/anime", {
-    params,
-  });
-  return response.data;
+  try {
+    const response = await axiosInstance.get<ApiResponse<AnimeItem>>("/anime", {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw error;
+    }
+    throw new Error("An unexpected error occurred");
+  }
 };
 
 /** 2. GET Anime Search */

@@ -30,11 +30,23 @@ export interface ImageFormat {
   large_image_url: string;
 }
 
+/** Genre/Theme/Demographic Item */
+export interface GenreItem {
+  mal_id: number;
+  name: string;
+  type: string;
+  url: string;
+}
+
 /** Item Anime Ringkas (untuk List, Search, Top) */
 export interface AnimeItem {
   mal_id: number;
   url: string;
   title: string;
+  title_english: string | null;
+  title_japanese: string | null;
+  status: string;
+  synopsis: string | null;
   images: {
     jpg: ImageFormat;
     webp: ImageFormat;
@@ -42,6 +54,21 @@ export interface AnimeItem {
   episodes: number | null;
   score: number | null;
   type: string;
+  genres: GenreItem[];
+  themes?: GenreItem[];
+  demographics?: GenreItem[];
+  aired?: {
+    from: string | null;
+    to: string | null;
+    string: string;
+  };
+  season?: string | null;
+  year?: number | null;
+  rating?: string | null;
+  rank?: number | null;
+  popularity?: number | null;
+  members?: number | null;
+  favorites?: number | null;
 }
 
 /** Detail Anime Penuh (untuk GET By ID) */
@@ -50,7 +77,15 @@ export interface AnimeDetail extends AnimeItem {
   synopsis: string | null;
   season: string | null;
   year: number | null;
-  genres: { name: string }[];
+  genres: GenreItem[];
+  themes: GenreItem[];
+  demographics: GenreItem[];
+  studios?: { mal_id: number; name: string; type: string; url: string }[];
+  producers?: { mal_id: number; name: string; type: string; url: string }[];
+  licensors?: { mal_id: number; name: string; type: string; url: string }[];
+  source?: string;
+  duration?: string;
+  rating?: string;
 }
 
 /** Item Karakter (untuk /characters) */
