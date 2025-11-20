@@ -24,7 +24,7 @@ function TopAnimePage() {
   const [typeFilter, setTypeFilter] = useState<string | undefined>();
   const [statusFilter, setStatusFilter] = useState<string | undefined>();
   const [ratingFilter, setRatingFilter] = useState<string | undefined>();
-  const [categoryFilter, setCategoryFilter] = useState<
+  const [categoryFilter] = useState<
     "bypopularity" | "airing" | "upcoming" | "favorite" | undefined
   >("bypopularity");
 

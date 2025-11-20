@@ -116,7 +116,7 @@ export interface Genre {
 }
 
 /** Item Jadwal Rilis (untuk /schedules) */
-export interface ScheduleItem {
+export interface ScheduleItem extends AnimeItem {
   mal_id: number;
   title: string;
   broadcast: { string: string };

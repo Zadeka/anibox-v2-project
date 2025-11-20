@@ -8,9 +8,6 @@ import { AnimeCardList } from "../components/common/AnimeCardList";
 import { AnimePagination } from "../components/common/AnimePagination";
 import { AnimeViewToggle } from "../components/common/AnimeViewToggle";
 import { AnimeLoadingSkeleton } from "../components/common/AnimeLoadingSkeleton";
-import { AnimeDayFilter } from "../components/common/AnimeDayFilter";
-import { AnimeTypeFilter } from "../components/common/AnimeTypeFilter";
-import { AnimeRatingFilter } from "../components/common/AnimeRatingFilter";
 
 function SchedulePage() {
   const [animeList, setAnimeList] = useState<ScheduleItem[]>([]);
@@ -30,8 +27,8 @@ function SchedulePage() {
     | "sunday"
     | undefined
   >();
-  const [typeFilter, setTypeFilter] = useState<string | undefined>();
-  const [ratingFilter, setRatingFilter] = useState<string | undefined>();
+  const [typeFilter] = useState<string | undefined>();
+  const [ratingFilter] = useState<string | undefined>();
 
   // Get current day
   const getCurrentDay = () => {
