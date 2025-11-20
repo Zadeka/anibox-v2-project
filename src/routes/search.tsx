@@ -4,12 +4,15 @@ import { useState, useEffect } from "react";
 import { getAllAnime } from "@/api/anime.api";
 import { AnimeCardGrid } from "@/components/common/AnimeCardGrid";
 import { AnimeCardList } from "@/components/common/AnimeCardList";
-import { AnimeFilters } from "@/components/common/AnimeFilters";
 import { AnimePagination } from "@/components/common/AnimePagination";
 import { AnimeViewToggle } from "@/components/common/AnimeViewToggle";
 import { AnimeLoadingSkeleton } from "@/components/common/AnimeLoadingSkeleton";
 import type { AnimeItem } from "@/types/anime.type";
-import type { FilterOptions } from "@/components/common/AnimeFilterSidebar";
+import { AnimeSearchInput } from "@/components/common/AnimeSearchInput";
+import { AnimeTypeFilter } from "@/components/common/AnimeTypeFilter";
+import { AnimeStatusFilter } from "@/components/common/AnimeStatusFilter";
+import { AnimeRatingFilter } from "@/components/common/AnimeRatingFilter";
+import { AnimeSortFilter } from "@/components/common/AnimeSortFilter";
 
 function AnimeListPage() {
   const [animeList, setAnimeList] = useState<AnimeItem[]>([]);
@@ -17,13 +20,26 @@ function AnimeListPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [filters, setFilters] = useState<FilterOptions>({});
+
+  // Separate filter states
   const [searchQuery, setSearchQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState<string | undefined>();
+  const [statusFilter, setStatusFilter] = useState<string | undefined>();
+  const [ratingFilter, setRatingFilter] = useState<string | undefined>();
+  const [sortFilter, setSortFilter] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchAnime = async () => {
       setLoading(true);
       try {
+        const filters = {
+          q: searchQuery || undefined,
+          type: typeFilter,
+          status: statusFilter,
+          rating: ratingFilter,
+          order_by: sortFilter,
+        };
+
         const response = await getAllAnime(currentPage, filters);
         setAnimeList(response.data);
         setTotalPages(response.pagination.last_visible_page);
@@ -35,24 +51,14 @@ function AnimeListPage() {
       }
     };
     fetchAnime();
-  }, [currentPage, filters]);
-
-  // Debounce search
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setFilters((prev) => ({ ...prev, q: searchQuery || undefined }));
-      setCurrentPage(1);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
-
-  const handleFilterChange = (
-    key: keyof FilterOptions,
-    value: string | undefined,
-  ) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
-    setCurrentPage(1);
-  };
+  }, [
+    currentPage,
+    searchQuery,
+    typeFilter,
+    statusFilter,
+    ratingFilter,
+    sortFilter,
+  ]);
 
   return (
     <div className="min-h-screen p-6">
@@ -69,12 +75,18 @@ function AnimeListPage() {
           <AnimeViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
         </div>
 
-        <AnimeFilters
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          filters={filters}
-          onFilterChange={handleFilterChange}
-        />
+        {/* Modular Filters */}
+        <div className="flex flex-wrap gap-3">
+          <AnimeSearchInput value={searchQuery} onChange={setSearchQuery} />
+
+          <AnimeTypeFilter value={typeFilter} onChange={setTypeFilter} />
+
+          <AnimeStatusFilter value={statusFilter} onChange={setStatusFilter} />
+
+          <AnimeRatingFilter value={ratingFilter} onChange={setRatingFilter} />
+
+          <AnimeSortFilter value={sortFilter} onChange={setSortFilter} />
+        </div>
       </div>
       {/* Grid/List Layout */}
       <div className="mx-auto max-w-7xl">

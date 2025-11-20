@@ -20,21 +20,6 @@ type ListResponse<T> = Promise<ApiResponse<T>>;
 // Tipe respons untuk detail tunggal (misal: /anime/{id})
 type DetailResponse<T> = Promise<JikanData<T>>;
 
-/** 1. GET All Anime (Populer) dengan Filter */
-export interface AnimeFilterParams {
-  q?: string;
-  type?: string;
-  status?: string;
-  rating?: string;
-  order_by?: string;
-  sort?: string;
-  // Anda bisa tambahkan 'limit', 'genres', 'start_date', dll. di sini
-}
-
-// =================================================================
-// FUNGSI AKSES DASAR & NAVIGASI UTAMA (getAllAnime yang Diperbarui)
-// =================================================================
-
 export interface AnimeFilterParams {
   q?: string;
   type?: string;
@@ -56,6 +41,8 @@ export const getAllAnime = async (
     page,
     limit: limitValue, // 👈 SET NILAI LIMIT DISINI
     sfw: true,
+    order_by: "",
+    sort: "desc",
   };
 
   // Tambahkan filter lainnya
@@ -120,17 +107,39 @@ export const getAnimeGenres = async (): DetailResponse<Genre[]> => {
   }
 };
 
-// =================================================================
-// II. FUNGSI PENEMUAN KONTEN (DISCOVERY)
-// =================================================================
+/** 5. GET Seasonal Anime (Airing Now) dengan Filter */
+export const getSeasonalAnime = async (
+  page: number = 1,
+  filters?: AnimeFilterParams,
+): ListResponse<AnimeItem> => {
+  
+  const limitValue = filters?.limit || 25;
 
-/** 5. GET Seasonal Anime (Airing Now) */
-export const getSeasonalAnime = async (): ListResponse<AnimeItem> => {
+  const params: Record<string, string | number | boolean> = {
+    page,
+    limit: limitValue,
+    sfw: true, 
+  };
+
+  if (filters) {
+    // 1. Filter Tipe (type): Dipetakan ke parameter 'filter' Jikan
+    if (filters.type) {
+      params.filter = filters.type; 
+    }
+  }
+
   try {
-    const response = await axiosInstance.get("/seasons/now");
+    const response = await axiosInstance.get<ApiResponse<AnimeItem>>(
+      "/seasons/now",
+      { params },
+    );
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      console.error(
+        "❌ Seasonal Anime Error:",
+        error.response?.data || error.message,
+      );
       throw error as AxiosError;
     }
     throw new Error("An unexpected error occurred");
