@@ -69,6 +69,7 @@ export interface AnimeItem {
   popularity?: number | null;
   members?: number | null;
   favorites?: number | null;
+  continuing?: boolean;
 }
 
 /** Detail Anime Penuh (untuk GET By ID) */

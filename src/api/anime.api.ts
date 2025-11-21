@@ -39,6 +39,7 @@ export interface AnimeFilterParams {
     | "sunday"; // Untuk schedule
   kids?: boolean; // Filter anime kids
   sfw?: boolean; // Safe for work
+  continuing?: boolean;
 }
 
 // 1. GET All Anime (untuk Home Page, Anime Populer)
@@ -157,12 +158,45 @@ export const getSeasonalAnime = async (
 };
 
 /** 6. GET Seasonal Upcoming */
-export const getUpcomingAnime = async (): ListResponse<AnimeItem> => {
+export const getUpcomingAnime = async (
+  page: number = 1,
+  filters?: AnimeFilterParams,
+): ListResponse<AnimeItem> => {
+  const limitValue = filters?.limit || 25;
+
+  const params: Record<string, string | number | boolean> = {
+    page,
+    limit: limitValue,
+    sfw: true,
+  };
+
+  // Tambahkan filter dari parameter
+  if (filters) {
+    // Filter type
+    if (filters.type) {
+      params.filter = filters.type;
+    }
+  }
+
+  console.log("🎬 Upcoming Anime Request Params:", params);
+
   try {
-    const response = await axiosInstance.get("/seasons/upcoming");
+    const response = await axiosInstance.get<ApiResponse<AnimeItem>>(
+      "/seasons/upcoming",
+      { params },
+    );
+
+    console.log("✅ Upcoming Anime Response:", {
+      total: response.data.data.length,
+      pagination: response.data.pagination,
+    });
+
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      console.error(
+        error.response?.data || error.message,
+      );
       throw error as AxiosError;
     }
     throw new Error("An unexpected error occurred");
