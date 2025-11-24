@@ -17,10 +17,21 @@ function SeasonalAnimePage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
 
   // Separate filter states
   const [typeFilter, setTypeFilter] = useState<string | undefined>();
 
+  // Function to remove duplicates based on mal_id
+  const removeDuplicates = (animes: AnimeItem[]): AnimeItem[] => {
+    const uniqueAnimes = new Map<number, AnimeItem>();
+    animes.forEach((anime) => {
+      if (!uniqueAnimes.has(anime.mal_id)) {
+        uniqueAnimes.set(anime.mal_id, anime);
+      }
+    });
+    return Array.from(uniqueAnimes.values());
+  };
 
   useEffect(() => {
     const fetchAnime = async () => {
@@ -30,8 +41,12 @@ function SeasonalAnimePage() {
           type: typeFilter,
         };
         const response = await getSeasonalAnime(currentPage, filters);
-        setAnimeList(response.data);
+        const uniqueAnimeList = removeDuplicates(response.data);
+        setAnimeList(uniqueAnimeList);
         setTotalPages(response.pagination.last_visible_page);
+        setTotalItems(
+          response.pagination.items?.total || uniqueAnimeList.length,
+        );
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (err) {
         console.error(err);
@@ -50,7 +65,7 @@ function SeasonalAnimePage() {
           <div>
             <h1 className="text-3xl font-bold">Seasonal Anime</h1>
             <p className="text-muted-foreground">
-              {animeList.length} anime ditemukan
+              {totalItems} anime ditemukan
             </p>
           </div>
 

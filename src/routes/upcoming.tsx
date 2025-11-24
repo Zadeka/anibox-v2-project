@@ -20,6 +20,18 @@ function UpcomingAnimePage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+
+  // Function to remove duplicates based on mal_id
+  const removeDuplicates = (animes: AnimeItem[]): AnimeItem[] => {
+    const uniqueAnimes = new Map<number, AnimeItem>();
+    animes.forEach((anime) => {
+      if (!uniqueAnimes.has(anime.mal_id)) {
+        uniqueAnimes.set(anime.mal_id, anime);
+      }
+    });
+    return Array.from(uniqueAnimes.values());
+  };
 
   // Filter states
   const [typeFilter, setTypeFilter] = useState<string | undefined>();
@@ -46,22 +58,26 @@ function UpcomingAnimePage() {
         console.log("🎬 Fetching Upcoming Anime with filters:", filters);
 
         const response = await getUpcomingAnime(currentPage, filters);
+        const uniqueAnimeList = removeDuplicates(response.data);
 
-        setAnimeList(response.data);
+        setAnimeList(uniqueAnimeList); // Gunakan uniqueAnimeList, bukan response.data
         setTotalPages(response.pagination.last_visible_page);
+        setTotalItems(
+          response.pagination.items?.total || uniqueAnimeList.length,
+        );
 
-        // Calculate stats (jika API tidak provide)
-        const newSeriesCount = response.data.filter(
+        // Calculate stats menggunakan uniqueAnimeList
+        const newSeriesCount = uniqueAnimeList.filter(
           (anime) => !anime.continuing,
         ).length;
-        const continuingCount = response.data.filter(
+        const continuingCount = uniqueAnimeList.filter(
           (anime) => anime.continuing,
         ).length;
 
         setStats({
           newSeries: newSeriesCount,
           continuing: continuingCount,
-          total: response.data.length,
+          total: uniqueAnimeList.length, // Gunakan uniqueAnimeList.length
         });
 
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -85,7 +101,7 @@ function UpcomingAnimePage() {
               Upcoming Anime
             </h1>
             <p className="text-purple-100">
-              Anime yang akan datang • {stats.total} anime
+              Anime yang akan datang • {totalItems} anime
             </p>
           </div>
           <AnimeViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />

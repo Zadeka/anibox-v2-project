@@ -19,6 +19,7 @@ function TopAnimePage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
 
   // Filter states
   const [typeFilter, setTypeFilter] = useState<string | undefined>();
@@ -27,6 +28,16 @@ function TopAnimePage() {
   const [categoryFilter] = useState<
     "bypopularity" | "airing" | "upcoming" | "favorite" | undefined
   >("bypopularity");
+
+  const removeDuplicates = (animes: AnimeItem[]): AnimeItem[] => {
+    const uniqueAnimes = new Map<number, AnimeItem>();
+    animes.forEach((anime) => {
+      if (!uniqueAnimes.has(anime.mal_id)) {
+        uniqueAnimes.set(anime.mal_id, anime);
+      }
+    });
+    return Array.from(uniqueAnimes.values());
+  };
 
   useEffect(() => {
     const fetchAnime = async () => {
@@ -42,9 +53,12 @@ function TopAnimePage() {
         console.log("🏆 Fetching Top Anime with filters:", filters);
 
         const response = await getTopAnime(currentPage, filters);
-
-        setAnimeList(response.data);
+        const uniqueAnimeList = removeDuplicates(response.data);
+        setAnimeList(uniqueAnimeList);
         setTotalPages(response.pagination.last_visible_page);
+        setTotalItems(
+          response.pagination.items?.total || uniqueAnimeList.length,
+        );
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (err) {
         console.error("❌ Error fetching top anime:", err);
@@ -66,7 +80,7 @@ function TopAnimePage() {
               Top Anime
             </h1>
             <p className="text-muted-foreground">
-              {animeList.length} anime ditemukan
+              {totalItems} anime ditemukan
             </p>
           </div>
           <AnimeViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />

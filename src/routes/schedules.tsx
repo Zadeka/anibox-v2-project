@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { CalendarDays } from "lucide-react";
-import type { ScheduleItem } from "../types/anime.type";
+import type { AnimeItem, ScheduleItem } from "../types/anime.type";
 import { getSchedules } from "../api/anime.api";
 import { AnimeCardGrid } from "../components/common/AnimeCardGrid";
 import { AnimeCardList } from "../components/common/AnimeCardList";
@@ -15,6 +15,7 @@ function SchedulePage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
 
   // Filter states
   const [dayFilter, setDayFilter] = useState<
@@ -44,6 +45,16 @@ function SchedulePage() {
     return days[new Date().getDay()] as any;
   };
 
+  const removeDuplicates = (animes: AnimeItem[]): AnimeItem[] => {
+    const uniqueAnimes = new Map<number, AnimeItem>();
+    animes.forEach((anime) => {
+      if (!uniqueAnimes.has(anime.mal_id)) {
+        uniqueAnimes.set(anime.mal_id, anime);
+      }
+    });
+    return Array.from(uniqueAnimes.values());
+  };
+
   useEffect(() => {
     const fetchSchedules = async () => {
       setLoading(true);
@@ -57,9 +68,13 @@ function SchedulePage() {
         console.log("📅 Fetching Schedules with filters:", filters);
 
         const response = await getSchedules(currentPage, filters);
+        const uniqueAnimeList = removeDuplicates(response.data);
 
-        setAnimeList(response.data);
+        setAnimeList(uniqueAnimeList);
         setTotalPages(response.pagination.last_visible_page);
+        setTotalItems(
+          response.pagination.items?.total || uniqueAnimeList.length,
+        );
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (err) {
         console.error("❌ Error fetching schedules:", err);
@@ -83,7 +98,7 @@ function SchedulePage() {
             <p className="text-purple-100">
               Anime yang tayang{" "}
               {dayFilter ? `hari ${getDayIndonesian(dayFilter)}` : "minggu ini"}{" "}
-              • {animeList.length} anime
+              • {totalItems} anime
             </p>
           </div>
           <AnimeViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
