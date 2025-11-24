@@ -9,7 +9,7 @@ export function Sidebar() {
     <aside className="sticky top-0 hidden h-screen border-r bg-muted/40 md:block md:w-64 lg:w-72">
       {/* Bagian Logo / Header Sidebar - Disesuaikan tingginya */}
       <div className="flex h-14 items-center border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-        <Link to="/" className="flex items-center gap-2 text-xl font-bold">
+        <Link to="/" className="flex items-center justify-center gap-2 text-xl font-bold">
           <span className="text-primary">AniBox</span>
         </Link>
       </div>
