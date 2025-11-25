@@ -15,6 +15,8 @@ import { Route as SeasonalRouteImport } from './routes/seasonal'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SchedulesRouteImport } from './routes/schedules'
 import { Route as GenresRouteImport } from './routes/genres'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnimeAnimeIdRouteImport } from './routes/anime/$animeId'
 import { Route as AnimeAnimeIdThemesRouteImport } from './routes/anime/$animeId/themes'
@@ -51,6 +53,16 @@ const SchedulesRoute = SchedulesRouteImport.update({
 const GenresRoute = GenresRouteImport.update({
   id: '/genres',
   path: '/genres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -91,6 +103,8 @@ const AnimeAnimeIdCharactersRoute = AnimeAnimeIdCharactersRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/genres': typeof GenresRoute
   '/schedules': typeof SchedulesRoute
   '/search': typeof SearchRoute
@@ -106,6 +120,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/genres': typeof GenresRoute
   '/schedules': typeof SchedulesRoute
   '/search': typeof SearchRoute
@@ -122,6 +138,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/genres': typeof GenresRoute
   '/schedules': typeof SchedulesRoute
   '/search': typeof SearchRoute
@@ -139,6 +157,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/contact'
     | '/genres'
     | '/schedules'
     | '/search'
@@ -154,6 +174,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/contact'
     | '/genres'
     | '/schedules'
     | '/search'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/contact'
     | '/genres'
     | '/schedules'
     | '/search'
@@ -185,6 +209,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   GenresRoute: typeof GenresRoute
   SchedulesRoute: typeof SchedulesRoute
   SearchRoute: typeof SearchRoute
@@ -236,6 +262,20 @@ declare module '@tanstack/react-router' {
       path: '/genres'
       fullPath: '/genres'
       preLoaderRoute: typeof GenresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -312,6 +352,8 @@ const AnimeAnimeIdRouteWithChildren = AnimeAnimeIdRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   GenresRoute: GenresRoute,
   SchedulesRoute: SchedulesRoute,
   SearchRoute: SearchRoute,
