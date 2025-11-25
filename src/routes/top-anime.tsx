@@ -75,7 +75,7 @@ function TopAnimePage() {
       <div className="mx-auto mb-8 max-w-7xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="flex items-center gap-2 text-3xl font-bold text-white">
+            <h1 className="flex items-center gap-2 text-3xl font-bold text-primary">
               <Trophy className="h-8 w-8" />
               Top Anime
             </h1>

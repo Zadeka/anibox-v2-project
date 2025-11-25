@@ -50,10 +50,10 @@ function GenresAnimePage() {
       <div className="mx-auto mb-8 max-w-7xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="flex items-center gap-2 text-3xl font-bold text-white">
-              <Sparkles className="h-10 w-10 text-white" /> Genre Anime
+            <h1 className="flex items-center gap-2 text-3xl font-bold text-primary">
+              <Sparkles className="h-10 w-10 text-primary" /> Genre Anime
             </h1>
-            <p className="text-purple-100">
+            <p className="text-muted-foreground">
               {genres.length > 0
                 ? `${genres.length} genre tersedia`
                 : "Memuat genre..."}

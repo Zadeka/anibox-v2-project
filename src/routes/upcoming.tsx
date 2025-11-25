@@ -96,11 +96,11 @@ function UpcomingAnimePage() {
       <div className="mx-auto mb-8 max-w-7xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="flex items-center gap-2 text-3xl font-bold text-white">
+            <h1 className="flex items-center gap-2 text-3xl font-bold text-primary">
               <CalendarClock className="h-8 w-8" />
               Upcoming Anime
             </h1>
-            <p className="text-purple-100">
+            <p className="text-muted-foreground">
               Anime yang akan datang • {totalItems} anime
             </p>
           </div>

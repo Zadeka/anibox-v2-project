@@ -20,7 +20,7 @@ export function AnimeSearchInput({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="pl-10"
+        className="pl-10 dark:text-white text-primary font-semibold"
       />
     </div>
   );

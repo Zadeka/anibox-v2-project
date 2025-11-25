@@ -2,12 +2,14 @@
 import {
   Home,
   Search,
-  Tv,
   Monitor,
   CalendarClock,
   Trophy,
   CalendarDays,
   type LucideIcon,
+  Sparkles,
+  Contact,
+  ContactRound,
 } from "lucide-react";
 export interface NavItem {
   title: string;
@@ -49,6 +51,16 @@ export const sidebarNavItems: NavItem[] = [
   {
     title: "Daftar Genre",
     href: "/genres",
-    icon: Tv,
+    icon: Sparkles,
   },
+  {
+    title: "About us",
+    href: "/about",
+    icon: ContactRound,
+  },
+  {
+    title: "Contact",
+    href: "/contact",
+    icon: Contact,
+  }
 ];

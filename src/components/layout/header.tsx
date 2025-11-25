@@ -3,17 +3,17 @@
 import React from "react";
 import { Link, useLocation, useRouterState } from "@tanstack/react-router";
 import { useTheme } from "next-themes";
-import { Menu, Moon, Sun, User, LogOut, Settings } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -64,7 +64,7 @@ export function Header() {
 
       <div className="flex items-center gap-2">
         <ModeToggle />
-        <UserNav />
+        {/* <UserNav /> */}
       </div>
     </header>
   );
@@ -86,7 +86,9 @@ function DynamicBreadcrumb() {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link to="/">Home</Link>
+            <Link className="font-semibold text-primary" to="/">
+              Home
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         {pathSegments.map((segment, index) => {
@@ -104,10 +106,14 @@ function DynamicBreadcrumb() {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 {isLast ? (
-                  <BreadcrumbPage>{title}</BreadcrumbPage>
+                  <BreadcrumbPage className="font-semibold text-primary">
+                    {title}
+                  </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink asChild>
-                    <Link to={href}>{title}</Link>
+                    <Link className="font-semibold text-primary" to={href}>
+                      {title}
+                    </Link>
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
@@ -123,37 +129,48 @@ function ModeToggle() {
   const { setTheme, theme } = useTheme();
   return (
     <Button
-      variant="ghost"
+      // 1. PERBAIKAN TOMBOL: Ganti ke secondary agar terlihat dan memiliki background
+      variant="secondary"
       size="icon"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      // Tambahkan transisi ke tombol
+      className="transition-colors duration-300"
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      {/* SUN ICON (Aktif di Light Mode) */}
+      {/* Teks diatur ke text-foreground (hitam/abu gelap) untuk kontras yang maksimal 
+     di atas latar belakang terang (Secondary BG). */}
+      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 fill-yellow-500 text-yellow-500 text-foreground transition-all dark:-rotate-90 dark:scale-0 " />
+
+      {/* MOON ICON (Aktif di Dark Mode) */}
+      {/* Teks diatur ke cyan-400 di mode gelap agar bersinar dan kontras 
+     dengan latar belakang ungu/abu-abu gelap. */}
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 dark:fill-cyan-400 dark:text-cyan-400" />
+
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
 }
 
-function UserNav() {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="secondary" size="icon" className="rounded-full">
-          <User className="h-5 w-5" />
-          <span className="sr-only">Toggle user menu</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" /> Settings
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-red-600">
-          <LogOut className="mr-2 h-4 w-4" /> Logout
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
+// function UserNav() {
+//   return (
+//     <DropdownMenu>
+//       <DropdownMenuTrigger asChild>
+//         <Button variant="secondary" size="icon" className="rounded-full">
+//           <User className="h-5 w-5" />
+//           <span className="sr-only">Toggle user menu</span>
+//         </Button>
+//       </DropdownMenuTrigger>
+//       <DropdownMenuContent align="end">
+//         <DropdownMenuLabel>My Account</DropdownMenuLabel>
+//         <DropdownMenuSeparator />
+//         <DropdownMenuItem>
+//           <Settings className="mr-2 h-4 w-4" /> Settings
+//         </DropdownMenuItem>
+//         <DropdownMenuSeparator />
+//         <DropdownMenuItem className="text-red-600">
+//           <LogOut className="mr-2 h-4 w-4" /> Logout
+//         </DropdownMenuItem>
+//       </DropdownMenuContent>
+//     </DropdownMenu>
+//   );
+// }

@@ -13,12 +13,21 @@ export function AnimeViewToggle({
 }: AnimeViewToggleProps) {
   return (
     <Tabs value={viewMode} onValueChange={(v) => onViewModeChange(v as any)}>
-      <TabsList>
-        <TabsTrigger value="grid">
+      <TabsList className="duration-300 animate-in fade-in">
+        {/* 1. TabsTrigger untuk Grid View */}
+        <TabsTrigger
+          value="grid"
+          className="font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md"
+        >
           <Grid3x3 className="mr-2 h-4 w-4" />
           Grid
         </TabsTrigger>
-        <TabsTrigger value="list">
+
+        {/* 2. TabsTrigger untuk List View */}
+        <TabsTrigger
+          value="list"
+          className="font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md"
+        >
           <List className="mr-2 h-4 w-4" />
           List
         </TabsTrigger>

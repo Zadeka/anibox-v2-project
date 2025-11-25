@@ -11,14 +11,7 @@ import { AnimeCardGrid } from "@/components/common/AnimeCardGrid";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Calendar,
-  Clock,
-  ArrowRight,
-  Play,
-  Star,
-  Film,
-} from "lucide-react";
+import { Calendar, Clock, ArrowRight, Play, Star, Film } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: HomeAnimePage,
@@ -163,7 +156,9 @@ function HomeAnimePage() {
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-bold">Discover Anime</h1>
+              <h1 className="text-4xl font-bold text-primary">
+                Discover Anime
+              </h1>
               <p className="text-muted-foreground">
                 Explore the best anime from around the world
               </p>
@@ -175,11 +170,13 @@ function HomeAnimePage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">All Anime</CardTitle>
-                <Film className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium text-primary">
+                  All Anime
+                </CardTitle>
+                <Film className="h-4 w-4 text-muted-foreground text-red-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold text-primary">
                   {sections.allAnime.loading
                     ? "..."
                     : sections.allAnime.totalItems.toLocaleString()}
@@ -192,13 +189,13 @@ function HomeAnimePage() {
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+                <CardTitle className="text-sm font-medium text-primary">
                   This Season
                 </CardTitle>
-                <Play className="h-4 w-4 text-muted-foreground" />
+                <Play className="h-4 w-4 text-muted-foreground stroke-green-500 fill-green-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold text-primary">
                   {sections.seasonal.loading
                     ? "..."
                     : sections.seasonal.totalItems.toLocaleString()}
@@ -211,13 +208,13 @@ function HomeAnimePage() {
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+                <CardTitle className="text-sm font-medium text-primary">
                   Upcoming Season
                 </CardTitle>
-                <Clock className="h-4 w-4 text-muted-foreground" />
+                <Clock className="h-4 w-4 text-muted-foreground stroke-cyan-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold text-primary">
                   {sections.upcoming.loading
                     ? "..."
                     : sections.upcoming.totalItems.toLocaleString()}
@@ -228,11 +225,13 @@ function HomeAnimePage() {
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Top Rated</CardTitle>
-                <Star className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium text-primary">
+                  Top Rated
+                </CardTitle>
+                <Star className="h-4 w-4 text-muted-foreground fill-yellow-500 text-yellow-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold text-primary">
                   {sections.topRated.loading
                     ? "..."
                     : sections.topRated.totalItems.toLocaleString()}
@@ -302,9 +301,9 @@ function AnimeSection({
     <section className="space-y-4">
       {/* Section Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-primary">
           {icon}
-          <h2 className="text-2xl font-bold">{title}</h2>
+          <h2 className="text-2xl font-bold text-primary">{title}</h2>
         </div>
         <Link to={viewAllLink}>
           <Button variant="ghost">

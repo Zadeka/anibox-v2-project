@@ -38,7 +38,7 @@ export function AnimeSortFilter({ value, onChange }: AnimeSortFilterProps) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
+          className="bg-primary text-white backdrop-blur-sm hover:border-2 hover:border-primary hover:bg-secondary/70 hover:text-primary"
         >
           <ArrowUpDown className="mr-2 h-4 w-4" />
           {getSortLabel(value)}
@@ -49,22 +49,40 @@ export function AnimeSortFilter({ value, onChange }: AnimeSortFilterProps) {
           Urutkan Berdasarkan
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => onChange(undefined)}>
+        <DropdownMenuItem
+          onClick={() => onChange(undefined)}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Default
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("score")}>
+        <DropdownMenuItem
+          onClick={() => onChange("score")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Rating Tertinggi
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("popularity")}>
+        <DropdownMenuItem
+          onClick={() => onChange("popularity")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Popularitas
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("favorites")}>
+        <DropdownMenuItem
+          onClick={() => onChange("favorites")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Favorit
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("start_date")}>
+        <DropdownMenuItem
+          onClick={() => onChange("start_date")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Tanggal Rilis
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("title")}>
+        <DropdownMenuItem
+          onClick={() => onChange("title")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Judul (A-Z)
         </DropdownMenuItem>
       </DropdownMenuContent>

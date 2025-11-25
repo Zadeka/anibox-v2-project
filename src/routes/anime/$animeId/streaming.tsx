@@ -45,7 +45,9 @@ function StreamingPage() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Streaming Platforms</h2>
+      <h2 className="text-2xl font-bold text-primary dark:text-white">
+        Streaming Platforms
+      </h2>
       {streaming.length > 0 ? (
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {streaming.map((stream, index) => (
@@ -53,7 +55,9 @@ function StreamingPage() {
               <CardContent className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
                   <Play className="h-5 w-5 text-primary" />
-                  <span className="font-semibold">{stream.name}</span>
+                  <span className="font-semibold text-primary dark:text-white">
+                    {stream.name}
+                  </span>
                 </div>
                 <Button variant="ghost" size="sm" asChild>
                   <a
@@ -61,7 +65,7 @@ function StreamingPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <ExternalLink className="h-4 w-4" />
+                    <ExternalLink className="h-4 w-4 text-primary transition-colors group-hover:text-white dark:text-white dark:group-hover:text-white" />
                   </a>
                 </Button>
               </CardContent>

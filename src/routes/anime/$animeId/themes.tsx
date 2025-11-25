@@ -44,21 +44,23 @@ function ThemesPage() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Themes</h2>
+      <h2 className="text-2xl font-bold text-primary dark:text-white">
+        Themes
+      </h2>
       {themes ? (
         <div className="grid gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Music className="h-5 w-5" />
-                Opening Themes
+                <Music className="h-5 w-5 text-primary dark:text-white" />
+                <p className="text-primary dark:text-white">Opening Themes</p>
               </CardTitle>
             </CardHeader>
             <CardContent>
               {themes.openings.length > 0 ? (
                 <ol className="list-inside list-decimal space-y-2">
                   {themes.openings.map((op, index) => (
-                    <li key={index} className="text-sm">
+                    <li key={index} className="text-sm font-medium">
                       {op}
                     </li>
                   ))}
@@ -74,15 +76,15 @@ function ThemesPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Music className="h-5 w-5" />
-                Ending Themes
+                <Music className="h-5 w-5 text-primary dark:text-white" />
+                <p className="text-primary dark:text-white">Ending Themes</p>
               </CardTitle>
             </CardHeader>
             <CardContent>
               {themes.endings.length > 0 ? (
                 <ol className="list-inside list-decimal space-y-2">
                   {themes.endings.map((ed, index) => (
-                    <li key={index} className="text-sm">
+                    <li key={index} className="text-sm font-medium">
                       {ed}
                     </li>
                   ))}

@@ -20,7 +20,7 @@ export function AnimeStatusFilter({ value, onChange }: AnimeStatusFilterProps) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
+          className="bg-primary text-white backdrop-blur-sm hover:border-2 hover:border-primary hover:bg-secondary/70 hover:text-primary"
         >
           {value ? `Status: ${value}` : "Status"}
         </Button>
@@ -30,16 +30,28 @@ export function AnimeStatusFilter({ value, onChange }: AnimeStatusFilterProps) {
           Pilih Status
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => onChange(undefined)}>
+        <DropdownMenuItem
+          onClick={() => onChange(undefined)}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Semua Status
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("airing")}>
+        <DropdownMenuItem
+          onClick={() => onChange("airing")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Sedang Tayang
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("complete")}>
+        <DropdownMenuItem
+          onClick={() => onChange("complete")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Selesai
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("upcoming")}>
+        <DropdownMenuItem
+          onClick={() => onChange("upcoming")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Akan Datang
         </DropdownMenuItem>
       </DropdownMenuContent>

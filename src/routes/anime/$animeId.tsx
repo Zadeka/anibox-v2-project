@@ -91,7 +91,7 @@ function AnimeDetailPage() {
   if (!anime) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p className="text-xl">Anime tidak ditemukan</p>
+        <p className="text-xl text-primary">Anime tidak ditemukan</p>
       </div>
     );
   }
@@ -101,7 +101,10 @@ function AnimeDetailPage() {
       <div className="mx-auto max-w-7xl">
         {/* Back Button */}
         <Link to="/search">
-          <Button variant="ghost" className="mb-6">
+          <Button
+            variant="ghost"
+            className="mb-6 flex items-center justify-center rounded-lg border-2 border-primary bg-primary px-3 py-1.5 text-sm font-medium text-white backdrop-blur-sm transition-all duration-200 hover:bg-white hover:text-primary active:scale-95 dark:hover:bg-secondary/70"
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Kembali
           </Button>
@@ -127,14 +130,16 @@ function AnimeDetailPage() {
           {/* Info */}
           <div className="space-y-4 lg:col-span-2">
             <div>
-              <h1 className="mb-2 text-4xl font-bold">{anime.title}</h1>
+              <h1 className="mb-2 text-4xl font-bold text-primary">
+                {anime.title}
+              </h1>
               {anime.title_english && (
-                <p className="text-xl text-muted-foreground">
+                <p className="text-xl text-primary/70 dark:text-white">
                   {anime.title_english}
                 </p>
               )}
               {anime.title_japanese && (
-                <p className="text-lg text-muted-foreground">
+                <p className="text-lg text-primary/70 dark:text-white">
                   {anime.title_japanese}
                 </p>
               )}
@@ -261,8 +266,10 @@ function AnimeDetailPage() {
             {anime.synopsis && (
               <Card>
                 <CardContent className="p-4">
-                  <h3 className="mb-2 font-semibold">Synopsis</h3>
-                  <p className="text-sm leading-relaxed">{anime.synopsis}</p>
+                  <h3 className="mb-2 font-semibold text-primary">Synopsis</h3>
+                  <p className="wrap-anywhere text-justify text-sm font-medium leading-relaxed text-purple-800 dark:text-purple-100">
+                    {anime.synopsis}
+                  </p>
                 </CardContent>
               </Card>
             )}
@@ -273,31 +280,46 @@ function AnimeDetailPage() {
         <Tabs value={getActiveTab()} className="w-full">
           <TabsList className="mb-6 grid w-full grid-cols-5">
             <Link to="/anime/$animeId/characters" params={{ animeId }}>
-              <TabsTrigger value="characters" className="w-full">
+              <TabsTrigger
+                value="characters"
+                className="w-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md"
+              >
                 <User2 className="mr-2 h-4 w-4" />
                 Characters
               </TabsTrigger>
             </Link>
             <Link to="/anime/$animeId/episodes" params={{ animeId }}>
-              <TabsTrigger value="episodes" className="w-full">
+              <TabsTrigger
+                value="episodes"
+                className="w-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md"
+              >
                 <FilmIcon className="mr-2 h-4 w-4" />
                 Episodes
               </TabsTrigger>
             </Link>
             <Link to="/anime/$animeId/pictures" params={{ animeId }}>
-              <TabsTrigger value="pictures" className="w-full">
+              <TabsTrigger
+                value="pictures"
+                className="w-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md"
+              >
                 <Image className="mr-2 h-4 w-4" />
                 Pictures
               </TabsTrigger>
             </Link>
             <Link to="/anime/$animeId/themes" params={{ animeId }}>
-              <TabsTrigger value="themes" className="w-full">
+              <TabsTrigger
+                value="themes"
+                className="w-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md"
+              >
                 <Music className="mr-2 h-4 w-4" />
                 Themes
               </TabsTrigger>
             </Link>
             <Link to="/anime/$animeId/streaming" params={{ animeId }}>
-              <TabsTrigger value="streaming" className="w-full">
+              <TabsTrigger
+                value="streaming"
+                className="w-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md"
+              >
                 <StreamIcon className="mr-2 h-4 w-4" />
                 Streaming
               </TabsTrigger>

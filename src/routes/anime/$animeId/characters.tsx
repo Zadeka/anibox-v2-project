@@ -15,6 +15,23 @@ function CharactersPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const getRoleColorClass = (role: string) => {
+    // Ubah input menjadi huruf kecil untuk perbandingan yang konsisten
+    const normalizedRole = role.toLowerCase();
+
+    switch (normalizedRole) {
+      case "main":
+        // Warna untuk Main Character
+        return "bg-green-500 text-white hover:bg-green-600 border-green-700";
+      case "supporting":
+        // Warna untuk Supporting Character
+        return "bg-sky-500 text-white hover:bg-sky-600 border-sky-700";
+      default:
+        // Warna Default
+        return "bg-gray-400 text-gray-800 hover:bg-gray-500 border-gray-600";
+    }
+  };
+
   useEffect(() => {
     const fetchCharacters = async () => {
       setLoading(true);
@@ -43,10 +60,15 @@ function CharactersPage() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Characters</h2>
+      <h2 className="text-2xl font-bold text-primary dark:text-white">
+        Characters
+      </h2>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
         {characters.map((char) => (
-          <Card key={char.character.mal_id} className="overflow-hidden">
+          <Card
+            key={char.character.mal_id}
+            className="overflow-hidden bg-primary/20 dark:bg-purple-900/50"
+          >
             <img
               src={char.character.images.jpg.image_url}
               alt={char.character.name}
@@ -56,7 +78,9 @@ function CharactersPage() {
               <p className="truncate text-sm font-semibold">
                 {char.character.name}
               </p>
-              <Badge variant="secondary" className="mt-1 text-xs">
+              <Badge
+                className={`mt-1 text-xs ${getRoleColorClass(char.role)}`}
+              >
                 {char.role}
               </Badge>
             </CardContent>

@@ -40,7 +40,7 @@ export function AnimeRatingFilter({ value, onChange }: AnimeRatingFilterProps) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
+          className="bg-primary text-white backdrop-blur-sm hover:border- hover:border-primary hover:bg-secondary/70 hover:text-primary"
         >
           <Shield className="mr-2 h-4 w-4" />
           {value ? getRatingLabel(value) : "Rating"}
@@ -51,22 +51,40 @@ export function AnimeRatingFilter({ value, onChange }: AnimeRatingFilterProps) {
           Pilih Rating
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => onChange(undefined)}>
+        <DropdownMenuItem
+          onClick={() => onChange(undefined)}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           Semua Rating
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("g")}>
+        <DropdownMenuItem
+          onClick={() => onChange("g")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           G - Semua Umur
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("pg")}>
+        <DropdownMenuItem
+          onClick={() => onChange("pg")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           PG - Anak-anak
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("pg13")}>
+        <DropdownMenuItem
+          onClick={() => onChange("pg13")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           PG-13 - Remaja 13+
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("r")}>
+        <DropdownMenuItem
+          onClick={() => onChange("r")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           R - 17+ (Violence & Profanity)
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange("r+")}>
+        <DropdownMenuItem
+          onClick={() => onChange("r+")}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
           R+ - Mild Nudity
         </DropdownMenuItem>
       </DropdownMenuContent>

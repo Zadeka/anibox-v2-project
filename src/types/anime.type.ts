@@ -107,6 +107,7 @@ export interface Episode {
   title: string;
   episode: string;
   aired: string;
+  forum_url: string;
 }
 
 /** Item Genre (untuk /genres/anime) */

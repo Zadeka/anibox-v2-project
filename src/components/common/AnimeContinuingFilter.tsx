@@ -1,5 +1,10 @@
 // src/components/common/AnimeContinuingFilter.tsx
-import { PlayCircle } from "lucide-react";
+import {
+  BadgePlusIcon,
+  PlayCircle,
+  StepForwardIcon,
+  TvIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,9 +25,20 @@ export function AnimeContinuingFilter({
   onChange,
 }: AnimeContinuingFilterProps) {
   const getLabel = () => {
-    if (value === true) return "🔄 Continuing";
-    if (value === false) return "🆕 New Series";
-    return "Semua";
+    if (value === true)
+      return (
+        <>
+          <BadgePlusIcon className="mr-2 h-4 w-4" /> Continuing
+        </>
+      );
+    if (value === false)
+      return (
+        <>
+          <StepForwardIcon className="mr-2 h-4 w-4" />
+          New Series
+        </>
+      );
+    return <><PlayCircle className="mr-2 h-4 w-4" /> Semua</>;
   };
 
   return (
@@ -30,9 +46,8 @@ export function AnimeContinuingFilter({
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
+          className="bg-primary text-white backdrop-blur-sm hover:border-2 hover:border-primary hover:bg-secondary/70 hover:text-primary"
         >
-          <PlayCircle className="mr-2 h-4 w-4" />
           {getLabel()}
         </Button>
       </DropdownMenuTrigger>
@@ -41,14 +56,26 @@ export function AnimeContinuingFilter({
           Tipe Rilis
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => onChange(undefined)}>
-          📺 Semua Anime
+        <DropdownMenuItem
+          onClick={() => onChange(undefined)}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
+          <TvIcon className="mr-2 h-4 w-4" />
+          Semua Anime
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange(false)}>
-          🆕 New Series (Baru)
+        <DropdownMenuItem
+          onClick={() => onChange(false)}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
+          <BadgePlusIcon className="mr-2 h-4 w-4" />
+          New Series (Baru)
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onChange(true)}>
-          🔄 Continuing (Lanjutan)
+        <DropdownMenuItem
+          onClick={() => onChange(true)}
+          className="cursor-pointer focus:bg-primary data-[highlighted]:bg-primary data-[highlighted]:text-primary-foreground dark:data-[highlighted]:bg-primary dark:data-[highlighted]:text-primary-foreground"
+        >
+          <StepForwardIcon className="mr-2 h-4 w-4" />
+          Continuing (Lanjutan)
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

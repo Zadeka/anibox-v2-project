@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { CalendarDays } from "lucide-react";
-import type {ScheduleItem } from "../types/anime.type";
+import { CalendarDays, PinIcon } from "lucide-react";
+import type { ScheduleItem } from "../types/anime.type";
 import { getSchedules } from "../api/anime.api";
 import { AnimeCardGrid } from "../components/common/AnimeCardGrid";
 import { AnimeCardList } from "../components/common/AnimeCardList";
@@ -91,11 +91,11 @@ function SchedulePage() {
       <div className="mx-auto mb-8 max-w-7xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="flex items-center gap-2 text-3xl font-bold text-white">
+            <h1 className="flex items-center gap-2 text-3xl font-bold text-primary">
               <CalendarDays className="h-8 w-8" />
               Jadwal Tayang
             </h1>
-            <p className="text-purple-100">
+            <p className="text-muted-foreground">
               Anime yang tayang{" "}
               {dayFilter ? `hari ${getDayIndonesian(dayFilter)}` : "minggu ini"}{" "}
               • {totalItems} anime
@@ -113,9 +113,10 @@ function SchedulePage() {
               setDayFilter(getCurrentDay());
               setCurrentPage(1);
             }}
-            className="rounded-lg bg-white/20 px-3 py-1.5 text-sm font-medium text-white backdrop-blur-sm transition-all hover:bg-white/30"
+            className="flex justify-center items-center rounded-lg border-2 border-primary bg-primary px-3 py-1.5 text-sm font-medium text-white backdrop-blur-sm transition-all duration-200 hover:bg-white hover:text-primary active:scale-95 dark:hover:bg-secondary"
           >
-            📍 Hari Ini
+            <PinIcon className="mr-2 h-4 w-4" />
+            Hari Ini
           </button>
           {[
             "monday",
@@ -134,8 +135,8 @@ function SchedulePage() {
               }}
               className={`rounded-lg px-3 py-1.5 text-sm font-medium backdrop-blur-sm transition-all ${
                 dayFilter === day
-                  ? "bg-white text-purple-600"
-                  : "bg-white/10 text-white hover:bg-white/20"
+                  ? "bg-purple-800 text-white"
+                  : "bg-primary text-white hover:scale-110 hover:bg-purple-600 hover:text-white active:scale-95"
               }`}
             >
               {getDayShort(day)}

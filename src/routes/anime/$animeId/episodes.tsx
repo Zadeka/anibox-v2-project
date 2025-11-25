@@ -44,23 +44,36 @@ function EpisodesPage() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Episodes</h2>
+      <h2 className="text-2xl font-bold text-primary dark:text-white">
+        Episodes
+      </h2>
       {episodes.length > 0 ? (
         <div className="grid gap-3">
           {episodes.map((ep) => (
-            <Card key={ep.mal_id}>
+            <Card
+              key={ep.mal_id}
+              className="dark:border-purple-800 dark:bg-purple-950/50"
+            >
               <CardContent className="flex items-center justify-between p-4">
                 <div>
-                  <p className="font-semibold">
-                    Episode {ep.episode}: {ep.title}
+                  <p className="font-semibold text-primary dark:text-white">
+                    Episode {ep.mal_id}: {ep.title}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Aired: {ep.aired || "N/A"}
                   </p>
                 </div>
-                <Button variant="ghost" size="sm" asChild>
-                  <a href={ep.url} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4" />
+                <Button
+                  size="sm"
+                  asChild
+                  className="group bg-white/80 text-primary transition-colors hover:bg-primary hover:text-white dark:bg-purple-800/80 dark:text-white dark:hover:bg-purple-700"
+                >
+                  <a
+                    href={ep.forum_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="h-4 w-4 text-primary transition-colors group-hover:text-white dark:text-white dark:group-hover:text-white" />
                   </a>
                 </Button>
               </CardContent>

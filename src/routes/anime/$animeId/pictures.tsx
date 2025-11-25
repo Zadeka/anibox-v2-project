@@ -41,7 +41,7 @@ function PicturesPage() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Pictures</h2>
+      <h2 className="text-2xl font-bold text-primary dark:text-white">Pictures</h2>
       {pictures.length > 0 ? (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {pictures.map((pic, index) => (
